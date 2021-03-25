@@ -1,5 +1,6 @@
 package contactmanagement;
-import java.util.Date;
+import java.util.*;
+import java.text.*;
 
 public class PersonalDetails {
 	private String email, country, state, streetAddress, gender;
@@ -7,13 +8,13 @@ public class PersonalDetails {
     private Date dob;
     
     public PersonalDetails() {
-        this.email = "";
-        this.country = "";
-        this.state = "";
-        this.streetAddress = "";
-        this.gender = "";
-        this.name = "";
-        this.phoneNum = "";
+        this.email = "not specified";
+        this.country = "not specified";
+        this.state = "not specified";
+        this.streetAddress = "not specificed";
+        this.gender = "not specified";
+        this.name = "not specified";
+        this.phoneNum = "00000000000";
         this.dob= null;
     }
     
@@ -50,23 +51,75 @@ public class PersonalDetails {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+    	int intIndex = email.indexOf(".");
+		if(intIndex == - 1) {
+			this.email = "Invalid email address";
+		} else {
+			this.email = email;
+		}
+        
     }
 
     public void setCountry(String country) {
-        this.country = country;
+    	if (country!=null) {
+			this.country = country ;
+		}else{
+			this.country = "Not specified";
+		}
     }
 
     public void setState(String state) {
-        this.state = state;
+    	if (state!=null) {
+			this.state = state ;
+		}else{
+			this.state = "Not specified";
+		}
     }
 
     public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    	if (streetAddress!=null) {
+			this.streetAddress = streetAddress ;
+		}else{
+			this.streetAddress = "Not specified";
+		}
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+    	/*
+    	switch(gender){
+	    	case "M":
+	            this.gender="Male";
+	            break;
+	        case "m":
+	        	this.gender="Male";
+	            break;
+	        case "f":
+	        	this.gender="Female";
+	            break;
+	        case "F":
+	        	this.gender="Female";
+	            break;
+	        default:
+	        	this.gender="No gender selected";
+	            break;
+    	}
+        */
+    	if(gender=="M"){
+            this.gender="Male";
+    	}
+    	else if(gender=="m"){
+            this.gender="Male";
+    	}    
+    	else if(gender=="F"){
+            this.gender="Female";
+    	}   
+    	else if(gender== "f"){
+            this.gender="Female";
+    	}
+    	else{
+            this.gender="No gender specified";
+    	}
+    	
     }
 
     public void setName(String name) {
@@ -74,11 +127,29 @@ public class PersonalDetails {
     }
 
     public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+        boolean isNumber;
+        if (phoneNum == null) {
+			isNumber=false;
+			this.phoneNum="Not specified";
+		}
+    	try {
+            int convertString = Integer.parseInt(phoneNum); 
+        } catch (NumberFormatException nfe) {
+            isNumber = false;
+        }
+        
+        isNumber=true;
+    	if (isNumber==true) {
+    		this.phoneNum = phoneNum;
+		}else{
+			this.phoneNum = "Invalid Phone number";
+		}
+        
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public void setDob(String dob) throws ParseException {
+        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
+    	this.dob = date;
     }
     
     public void RetrieveDetails(String email, String country, String state, String streetAddress, String gender, String name, String phoneNum, Date dob) {
@@ -90,8 +161,10 @@ public class PersonalDetails {
         System.out.println("Country\t: "+country);
         System.out.println("State\t: "+state);
         System.out.println("Street Address\t: "+streetAddress);
-         System.out.println("Email address and alternative email(separated by common)\t: "+email);
-        
+        System.out.println("Email address and alternative email(separated by common)\t: "+email);
+        System.out.println();
     }
+    
+   
     
 }

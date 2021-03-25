@@ -1,11 +1,13 @@
 package contactmanagement;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ContactManagement {
 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		int counter=0;
         String[] email={null}, country={null}, state={null}, streetAddress={null}; 
@@ -23,88 +25,75 @@ public class ContactManagement {
             name[counter]=input.nextLine();
             
             System.out.println("Please enter your gender(M for male or F for female)");
-            gender[counter]=input.nextLine();
-            
-            
-            /*
-            switch(gender[counter]){
-            	case "M":
-                    gender[counter]="Male";
-                    break;
-                case "m":
-                    gender[counter]="Male";
-                    break;
-                case "f":
-                    gender[counter]="Female";
-                    break;
-                case "F":
-                    gender[counter]="Female";
-                    break;
-                default:
-                    gender[counter]="No gender selected";
-                    break;
-            
-            }
-            */
-            String genderValue=gender[counter];
-        	if(genderValue=="M"){
-                gender[counter]="Male";
-        	}
-        	else if(genderValue=="m"){
-                gender[counter]="Male";
-        	}    
-        	else if(genderValue=="F"){
-                gender[counter]="Female";
-        	}   
-        	else if(genderValue== "f"){
-                gender[counter]="Female";
-        	}else{
-                gender[counter]="No gender selected";
-        	}
+            myObj.setGender(input.nextLine());
+            gender[counter]=myObj.getGender();
         
         	System.out.println("Please enter your date of birth(dd/MM/yyyy): ");
-            String userDob=input.nextLine();
-            
-            
+        	myObj.setDob(input.nextLine());
+            dob[counter] = myObj.getDob();
+                
             System.out.println("Please enter your country of origin");
-            country[counter]=input.nextLine();
-            
+            myObj.setCountry(input.nextLine());
+           	country[counter] = myObj.getCountry();
+            		
             System.out.println("Please enter your state");
-            state[counter]=input.nextLine();
+            myObj.setState(input.nextLine());
+            state[counter]=myObj.getState();
             
             System.out.println("Please enter your street address");
-            streetAddress[counter]=input.nextLine();
+            myObj.setStreetAddress(input.nextLine());
+            streetAddress[counter]=myObj.getStreetAddress();
             
             physicalAddress[counter]=country[counter]+", "+state[counter]+", "+streetAddress[counter];
             
-            System.out.println("Please enter your cellphone number");
-            phoneNum[counter]=input.nextLine();
-            System.out.println("do you have an alternative number? (YES OR NO)");
+            System.out.println("Please enter your cellphone number: ");
+            
+            myObj.setPhoneNum(input.nextLine());
+            phoneNum[counter]=myObj.getPhoneNum();
+            
+            System.out.println("do you have an alternative number? (YES OR NO): ");
             String response=input.nextLine();
             /*   
             switch(response){
                 case "YES":
-                    System.out.println("Enter your office/home number ");
-                    phoneNum[counter]=phoneNum[counter]+" "+input.nextLine();
-                    break;
+	                System.out.println("Enter your office number(Press enter if you do not have a office number) ");
+	            	myObj.setPhoneNum(input.nextLine());
+	                String officeNum = myObj.getPhoneNum();
+	                
+	                System.out.println("Enter your home number(Press enter if you do not have a home number) ");
+	                myObj.setPhoneNum(input.nextLine());
+	                String homeNum = myObj.getPhoneNum();
+	                phoneNum[counter] = "M " + phoneNum[counter] + " (H)" + officeNum + " (O)" + homeNum;
+                	break;
                 case "yes":
-                    System.out.println("Enter your office/home number ");
-                    phoneNum[counter]=phoneNum[counter]+" "+input.nextLine();
-                    break;
+	                System.out.println("Enter your office number(Press enter if you do not have a office number) ");
+	            	myObj.setPhoneNum(input.nextLine());
+	                String officeNum = myObj.getPhoneNum();
+	                
+	                System.out.println("Enter your home number(Press enter if you do not have a home number) ");
+	                myObj.setPhoneNum(input.nextLine());
+	                String homeNum = myObj.getPhoneNum();
+	                phoneNum[counter] = "M " + phoneNum[counter] + " (H)" + officeNum + " (O)" + homeNum;
+	                break;
                 default:
                     break;
             }
             */
             if (response=="Yes" || response=="yes"|| response=="YES") {
-            	System.out.println("Enter your office/home number ");
-                phoneNum[counter]=phoneNum[counter]+" "+input.nextLine();
+            	System.out.println("Enter your office number(Press enter if you do not have a office number) ");
+            	myObj.setPhoneNum(input.nextLine());
+                String officeNum = myObj.getPhoneNum();
                 
+                System.out.println("Enter your home number(Press enter if you do not have a home number) ");
+                myObj.setPhoneNum(input.nextLine());
+                String homeNum = myObj.getPhoneNum();
+                phoneNum[counter] = "M " + phoneNum[counter] + " (H)" + officeNum + " (O)" + homeNum;
 			}
             
             
             System.out.println("Please enter your email address: ");
-            
-            email[counter]=input.nextLine();
+            myObj.setEmail(input.nextLine());
+            email[counter]=myObj.getEmail();
             
             System.out.println("do you have an alternative email address? (YES OR NO):");
             response=input.nextLine();
@@ -112,11 +101,14 @@ public class ContactManagement {
             switch(response){
                 case "YES":
                     System.out.println("Enter your alternative email address: ");
-                    email[counter]=email[counter]+", "+input.nextLine();
+                    myObj.setEmail(input.nextLine());
+                    email[counter]=email[counter]+", "+myObj.getEmail();
                     break;
                 case "yes":
-                    System.out.println("Enter your alternative address: ");
-                    email[counter]=email[counter]+", "+input.nextLine();
+                    System.out.println("Enter your alternative email address: ");
+                    eSystem.out.println("Enter your alternative email address: ");
+                    myObj.setEmail(input.nextLine());
+                    email[counter]=email[counter]+", "+myObj.getEmail();
                     break;
                 default:
                     break;
@@ -124,7 +116,8 @@ public class ContactManagement {
             */
             if (response=="Yes" || response=="yes"|| response=="YES") {
             	System.out.println("Enter your alternative email address: ");
-                email[counter]=email[counter]+", "+input.nextLine();
+            	myObj.setEmail(input.nextLine());
+                email[counter]=email[counter]+", "+myObj.getEmail();
             }
             
             
@@ -134,7 +127,7 @@ public class ContactManagement {
             counter++; 
         }
         
-        for (int i = 0; i <= counter; i++) {    
+        for (int i = 0; i <= counter-1; i++) {    
             myObj.RetrieveDetails(email[i], country[i], state[i], streetAddress[i], gender[i], name[i], phoneNum[i], dob[i]);
         }
             
